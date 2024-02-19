@@ -3,6 +3,8 @@ const app = express();
 const port = 5000;
 const jwt = require("jsonwebtoken");
 
+const tokenTimeLimit = "15m";
+
 app.use(express.json());
 
 // alternative of user database
@@ -51,7 +53,7 @@ app.post("/api/refresh", (req, res) => {
 
 const generateAccessToken = (user) => {
   return jwt.sign({ id: user.id, isAdmin: user.isAdmin }, "mySecretKey", {
-    expiresIn: "15m",
+    expiresIn: tokenTimeLimit,
   });
 };
 
